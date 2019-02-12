@@ -417,7 +417,7 @@ class Scratch3DatabaseBlocks {
      */
      getProject(args) {
         console.log('getting project ' + String(args.PROJECT_ID))
-        var project_id = parseInt(args.PROJECT_ID[0]);
+        var project_id = parseInt(args.PROJECT_ID);
         var query_string = DEFAULT_URL + '?project_id=' + project_id + '&pmd=true';
         var self = this;
 
@@ -432,6 +432,7 @@ class Scratch3DatabaseBlocks {
             }
         };
 
+        console.log('getting project ' + project_id);
         this._openXHR('GET', query_string, callback);
      }
 
@@ -473,9 +474,6 @@ class Scratch3DatabaseBlocks {
         post_data.append('sensor_id', '0');
         post_data.append('data_type', String(args.DATA_TYPE));
         post_data.append('value', String(args.VALUE));
-        post_data.forEach(function(value, key){
-            console.log(key + ': ' + value);
-        });
         var callback = function(xhr) {
             console.log('wmsinh.org - ', xhr.response);
             // this._response_text = xhr.responseText;
