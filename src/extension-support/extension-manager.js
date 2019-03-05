@@ -33,13 +33,9 @@ const builtinExtensions = {
     videoSensing: Scratch3VideoSensingBlocks,
     // speech2text: Scratch3Speech2TextBlocks,
     ev3: Scratch3Ev3Blocks,
-<<<<<<< Updated upstream
+    dbBlocks: Scratch3DatabaseBlocks,
     makeymakey: Scratch3MakeyMakeyBlocks
     // gdxfor: Scratch3GdxForBlocks
-=======
-    dbBlocks: Scratch3DatabaseBlocks,
-    // helloWorld: Scratch3HelloWorldBlocks
->>>>>>> Stashed changes
 };
 
 /**

@@ -442,7 +442,7 @@ class Scratch3DatabaseBlocks {
      */
      deleteProject(args) {
         console.log('deleting project ' + args.PROJECT_ID)
-        var project_id = parseInt(args.PROJECT_ID[0]);
+        var project_id = parseInt(args.PROJECT_ID);
         var all_projects = this._getLocalVariable('all_projects');
         if(all_projects && all_projects != "undefined") {
             all_projects = JSON.parse(all_projects);
@@ -493,7 +493,7 @@ class Scratch3DatabaseBlocks {
         var all_projects = this._getLocalVariable('all_projects');
         if(all_projects && all_projects != "undefined") {
             all_projects = JSON.parse(all_projects);
-            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID[0]))];
+            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID))];
             var edit_data = new FormData();
 
             edit_data.append('project_id', this_project.id);
@@ -520,7 +520,7 @@ class Scratch3DatabaseBlocks {
         var all_projects = this._getLocalVariable('all_projects');
         if(all_projects && all_projects != "undefined") {
             all_projects = JSON.parse(all_projects);
-            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID[0]))];
+            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID))];
             if(this_project['data_sets'].hasOwnProperty(args.DATA_TYPE)) {
                 return JSON.stringify(this_project['data_sets'][args.DATA_TYPE]);
             } else {
@@ -564,11 +564,11 @@ class Scratch3DatabaseBlocks {
      * @returns {string} - attribute for the meta data field 
      */ 
     getProjectMetaData(args) {
-        console.log('get metadata field ' + args.FIELD + ' from project ' + String(args.PROJECT_ID[0]));
+        console.log('get metadata field ' + args.FIELD + ' from project ' + String(args.PROJECT_ID));
         var all_projects = this._getLocalVariable('all_projects');
         if(all_projects && all_projects != "undefined") {
             all_projects = JSON.parse(all_projects);
-            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID[0]))];
+            var this_project = all_projects[all_projects.findIndex(e => e.id === parseInt(args.PROJECT_ID))];
             if(args.FIELD == 'data types') 
                 return JSON.stringify(Object.keys(this_project.data_sets));
             else
