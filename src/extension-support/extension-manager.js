@@ -7,6 +7,7 @@ const BlockType = require('./block-type');
 // These extensions are currently built into the VM repository but should not be loaded at startup.
 // TODO: move these out into a separate repository?
 // TODO: change extension spec so that library info, including extension ID, can be collected through static methods
+<<<<<<< HEAD
 const Scratch3PenBlocks = require('../extensions/scratch3_pen');
 const Scratch3WeDo2Blocks = require('../extensions/scratch3_wedo2');
 const Scratch3MusicBlocks = require('../extensions/scratch3_music');
@@ -36,6 +37,23 @@ const builtinExtensions = {
     dbBlocks: Scratch3DatabaseBlocks,
     makeymakey: Scratch3MakeyMakeyBlocks
     // gdxfor: Scratch3GdxForBlocks
+=======
+
+const builtinExtensions = {
+    pen: () => require('../extensions/scratch3_pen'),
+    wedo2: () => require('../extensions/scratch3_wedo2'),
+    music: () => require('../extensions/scratch3_music'),
+    microbit: () => require('../extensions/scratch3_microbit'),
+    text2speech: () => require('../extensions/scratch3_text2speech'),
+    translate: () => require('../extensions/scratch3_translate'),
+    videoSensing: () => require('../extensions/scratch3_video_sensing'),
+    speech2text: () => require('../extensions/scratch3_speech2text'),
+    ev3: () => require('../extensions/scratch3_ev3'),
+    makeymakey: () => require('../extensions/scratch3_makeymakey')
+    // todo: only load this extension once we have a compatible way to load its
+    // Vernier module dependency.
+    // gdxfor: () => require('../extensions/scratch3_gdx_for')
+>>>>>>> 151789cbadfc50b8c8fe67e54f9d467be43ae29b
 };
 
 /**
@@ -136,7 +154,7 @@ class ExtensionManager {
                 return Promise.reject(new Error(message));
             }
 
-            const extension = builtinExtensions[extensionURL];
+            const extension = builtinExtensions[extensionURL]();
             const extensionInstance = new extension(this.runtime);
             return this._registerInternalExtension(extensionInstance).then(serviceName => {
                 this._loadedExtensions.set(extensionURL, serviceName);
