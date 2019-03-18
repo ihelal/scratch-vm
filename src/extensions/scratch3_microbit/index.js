@@ -100,6 +100,7 @@ class MicroBit {
             buttonB: 0,
             touchPins: [0, 0, 0],
             gestureState: 0,
+            temperature: 0,
             ledMatrixState: new Uint8Array(5)
         };
 
@@ -212,6 +213,12 @@ class MicroBit {
     }
 
     /**
+     * @return {number} - the latest value received for the microbit temperature.
+     */
+    get temperature () {
+        return this._sensors.temperature;
+    }
+    /**
      * Called by the runtime when user wants to scan for a peripheral.
      */
     scan () {
@@ -314,7 +321,7 @@ class MicroBit {
         // parse data
         const data = Base64Util.base64ToUint8Array(base64);
 
-        // console.log("microbit: " + data);
+        console.log("microbit: " + data);
 
         this._sensors.tiltX = data[1] | (data[0] << 8);
         if (this._sensors.tiltX > (1 << 15)) this._sensors.tiltX -= (1 << 16);
@@ -329,6 +336,8 @@ class MicroBit {
         this._sensors.touchPins[2] = data[8];
 
         this._sensors.gestureState = data[9];
+
+        this._sensors.temperature = data[13]
 
         // cancel disconnect timeout and start a new one
         window.clearTimeout(this._timeoutID);
@@ -728,6 +737,15 @@ class Scratch3MicroBitBlocks {
                         }
                     }
                 },
+                {
+                    opcode: 'getTemperature',
+                    text: formatMessage({
+                        id: 'microbit.temperature',
+                        default: 'temperature',
+                        description: 'surface temperature of the microbit'
+                    }),
+                    blockType: BlockType.REPORTER
+                },
                 '---',
                 {
                     opcode: 'whenPinConnected',
@@ -902,6 +920,10 @@ class Scratch3MicroBitBlocks {
      */
     getTiltAngle (args) {
         return this._getTiltAngle(args.DIRECTION);
+    }
+
+    getTemperature () {
+        return this._peripheral.temperature;
     }
 
     /**
