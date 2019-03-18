@@ -314,6 +314,8 @@ class MicroBit {
         // parse data
         const data = Base64Util.base64ToUint8Array(base64);
 
+        // console.log("microbit: " + data);
+
         this._sensors.tiltX = data[1] | (data[0] << 8);
         if (this._sensors.tiltX > (1 << 15)) this._sensors.tiltX -= (1 << 16);
         this._sensors.tiltY = data[3] | (data[2] << 8);
