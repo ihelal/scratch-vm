@@ -106,14 +106,14 @@ class Scratch3DatabaseBlocks {
         // var data = JSON.parse(dataString);
         var data_set = {data_type, data_set, data_length};
         var data_set_list = this._getLocalVariable('data_set_list');
-        console.log('adding data set ' + JSON.stringify(data_set));
+        // console.log('adding data set ' + JSON.stringify(data_set));
 
         if(data_set_list && data_set_list != "undefined") {
             data_set_list = JSON.parse(data_set_list);
             // for now each data_type can only be stored once in the list
             var type_index = data_set_list.findIndex(e => e.data_type === data_type);
             if(type_index != -1) {
-                console.log('data type ' + data_type + ' already exists; replacing with new data set');
+                // console.log('data type ' + data_type + ' already exists; replacing with new data set');
                 data_set_list.splice(type_index, 1);
             }
         } else {
@@ -126,13 +126,13 @@ class Scratch3DatabaseBlocks {
 
     _addProject(project) {
         var all_projects = this._getLocalVariable('all_projects');
-        console.log('adding project ' + JSON.stringify(project));
+        // console.log('adding project ' + JSON.stringify(project));
 
         if(all_projects && all_projects != "undefined") {
             all_projects = JSON.parse(all_projects);
             var proj_index = all_projects.findIndex(e => e.id === project.id);
             if(proj_index != -1) {
-                console.log('project ' + project.name + ' already in memory. Replacing with new data');
+                // console.log('project ' + project.name + ' already in memory. Replacing with new data');
                 all_projects.splice(proj_index, 1);
             }
         } else {
@@ -416,7 +416,7 @@ class Scratch3DatabaseBlocks {
      * @param {string} PROJECT_ID - id of project to get from database
      */
      getProject(args) {
-        console.log('getting project ' + String(args.PROJECT_ID))
+        // console.log('getting project ' + String(args.PROJECT_ID))
         var project_id = parseInt(args.PROJECT_ID);
         var query_string = DEFAULT_URL + '?project_id=' + project_id + '&pmd=true';
         var self = this;
@@ -432,7 +432,7 @@ class Scratch3DatabaseBlocks {
             }
         };
 
-        console.log('getting project ' + project_id);
+        // console.log('getting project ' + project_id);
         this._openXHR('GET', query_string, callback);
      }
 
